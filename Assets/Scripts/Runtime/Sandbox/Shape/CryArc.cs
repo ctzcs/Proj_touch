@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Microsoft.Win32.SafeHandles;
 using Shapes;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class CryArc : MonoBehaviour
@@ -10,7 +11,7 @@ public class CryArc : MonoBehaviour
     
     [Range(0,1)]
     public float range;
-    public float lastRangeRecord;
+    
     public float recordX;
     public float rangeDeltaSpeed;
 
@@ -19,7 +20,7 @@ public class CryArc : MonoBehaviour
     /// </summary>
     public float endDegree;
     /// <summary>
-    /// 
+    /// 开始的角度
     /// </summary>
     public float startDegree;
 
@@ -29,12 +30,16 @@ public class CryArc : MonoBehaviour
     /// </summary>
     public Disc fill;
     /// <summary>
+    /// 背景
+    /// </summary>
+    public Transform bg;
+    /// <summary>
     /// handle
     /// </summary>
     public Transform handle;
     
-    [HideInInspector]
-    public RaycastHit2D[] hitInfo;
+    /*[HideInInspector]
+    public RaycastHit2D[] hitInfo;*/
     // Start is called before the first frame update
     void Start()
     {
@@ -48,22 +53,27 @@ public class CryArc : MonoBehaviour
         if (Input.GetMouseButton(0))
         {
             var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Physics2D.RaycastNonAlloc(point, Vector2.zero,hitInfo);
-            Debug.Log(hitInfo[0]);
-            if (hitInfo.Length > 0 )
+            RaycastHit2D info = Physics2D.Raycast(point, Vector2.zero,0.1f);
+            point.z = 0;
+            
+            if (info.collider.CompareTag("Handle"))
             {
-                if (hitInfo[0].collider.CompareTag("Handle"))
+                var florence = Mathf.Abs(point.x - recordX);
+                if (florence > 0.001f)
                 {
-                    var florence = point.x - recordX;
-                    if (florence > 0.001f)
+                    var localPoint = transform.InverseTransformPoint(point);
+                    var angle = Vector2.SignedAngle(bg.transform.right, localPoint);
+                    range = ControlDegree2Range(angle);
+                    if (Vector2.Distance(localPoint,handle.localPosition) < 1f)
                     {
-                        range += rangeDeltaSpeed * Time.deltaTime;
                         SetRange(range);
-                        
                     }
-                    recordX = point.x;
+                    
                 }
+                
+                recordX = point.x;
             }
+
         }
         
         
@@ -74,7 +84,7 @@ public class CryArc : MonoBehaviour
         controlDegree = 0;
         radius = 2;
         recordX = -10;
-        hitInfo = new RaycastHit2D[1];
+        /*hitInfo = new RaycastHit2D[1];*/
         SetRange(0);
     }
 
@@ -88,10 +98,10 @@ public class CryArc : MonoBehaviour
         range = ControlDegree2Range(controlDegree);
         //填充会随之变化
         fill.AngRadiansEnd = controlDegree * Mathf.Deg2Rad;
-        
     }
     float ControlDegree2Range(float degree)
     {
+        degree = Mathf.Clamp(degree, endDegree, startDegree);
         return 1 - (degree - endDegree) / (startDegree - endDegree);
     }
 
