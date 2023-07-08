@@ -142,7 +142,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0151a8a413c35934a9bf81fb527bdba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Polygon: {fileID: 5774359933958049506}
+  m_TPolygon: {fileID: 0}
+  m_HPolygon: {fileID: 0}
+  m_Btn: {fileID: 0}
+  OUC_Animation: {fileID: 0}
+  m_TUpHeight: 0
+  m_TDownHeight: 0
+  m_TLeftWidth: 0
+  m_TRightWidth: 0
+  m_HUpHeight: 0
+  m_HDownHeight: 0
+  m_HLeftWidth: 0
+  m_HRightWidth: 0
 --- !u!1 &5774359935473182021
 GameObject:
   m_ObjectHideFlags: 0

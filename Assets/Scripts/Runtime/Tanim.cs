@@ -1,11 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Shapes;
-using UnityEngine.Experimental.GlobalIllumination;
-using System.Xml.Serialization;
 using UnityEngine.UI;
-using System;
 using UnityEditor;
 
 public class Tanim : MonoBehaviour
@@ -116,6 +112,7 @@ public class Tanim : MonoBehaviour
         }
     }
 
+    
     public IEnumerator TYReAnimation(float limitLength, float speed)
     {
 
@@ -184,7 +181,6 @@ public class Tanim : MonoBehaviour
     }
     public IEnumerator HYReAnimation(float limitLength, float speed)
     {
-
         while (m_HPolygon.points[0].y > limitLength)
         {
             m_HPolygon.SetPointPosition(0,
