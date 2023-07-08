@@ -1,5 +1,7 @@
+
 using Shapes;
 using UnityEngine;
+
 
 public class CryArc : MonoBehaviour
 {
@@ -19,7 +21,14 @@ public class CryArc : MonoBehaviour
     [Header("鼠标控制的Range")]
     [Range(0,1)]
     public float range;
-    
+    /// <summary>
+    /// 范围变化量
+    /// </summary>
+    public float rangeDelta;
+    /// <summary>
+    /// 如果范围状态不变，则记录为0
+    /// </summary>
+    public float recordRange;
     public float controlDegree;
     
     /// <summary>
@@ -31,15 +40,16 @@ public class CryArc : MonoBehaviour
     /// 背景
     /// </summary>
     public Disc bg;
+
     /// <summary>
     /// handle
     /// </summary>
+    public Disc handleDisc;
     public Transform handle;
     
-    
     private float _recordX;
-    
-    private float _rangeDeltaSpeed;
+
+    public bool IsLevel;
     
 
     // Start is called before the first frame update
@@ -52,11 +62,12 @@ public class CryArc : MonoBehaviour
     void Update()
     {
         //TODO range == 1进入关卡
+        
         //用射线检测到range变化
-        if (Input.GetMouseButton(0))
+        if (!IsLevel && Input.GetMouseButton(0))
         {
             var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D info = Physics2D.Raycast(point, Vector2.zero,0.1f);
+            RaycastHit2D info = Physics2D.Raycast(point, Vector2.zero, 0.1f);
             point.z = 0;
             if (info.collider.CompareTag("Handle"))
             {
@@ -65,42 +76,60 @@ public class CryArc : MonoBehaviour
                 {
                     var localPoint = transform.InverseTransformPoint(point);
                     var angle = Vector2.SignedAngle(bg.transform.right, localPoint);
-                    range = ControlDegree2Range(angle);
-                    if (Vector2.Distance(localPoint,handle.localPosition) < 1f)
+                    float value = ControlDegree2Range(angle);
+                    rangeDelta = value - range;
+                    range = value;
+                    if (Vector2.Distance(localPoint, handle.localPosition) < 1f)
                     {
-                        SetRange(range);
+                        SetRange(value);
+
                     }
-                    
                 }
+
                 _recordX = point.x;
             }
+            if (range >= 1)
+            {
+                IsLevel = true;
+                /*AnimDirector.GetInstance().SetAnimState(ECurrentState.EntryLevel);*/
+            }
+            recordRange = Mathf.Approximately(range, recordRange) ? 0 : range;
         }
-        
-        
+        else recordRange = 0;
+
+
     }
 
     void Init()
     {
         controlDegree = 0;
-        /*radius = bg.Radius;*/
+        radius = 2f;
         _recordX = -10;
         //貌似他走的都是自己的流程，在别的地方改无效。
-        /*thickNess = 0.25f;*/
-
-        /*bg.Radius = radius;
-        bg.AngRadiansStart = startDegree * Mathf.Deg2Rad;
-        bg.AngRadiansEnd = endDegree * Mathf.Deg2Rad;*/
+        thickNess = 0.25f;
+        /*using (Draw.Command(Camera.main))
+        {
+            Draw.Radius = radius;
+            Draw.Arc(this.transform.position,Quaternion.identity,startDegree * Mathf.Deg2Rad,endDegree * Mathf.Deg2Rad );
+            bg.Radius = radius;
+            bg.AngRadiansStart = startDegree * Mathf.Deg2Rad;
+            bg.AngRadiansEnd = endDegree * Mathf.Deg2Rad;
         
         
-        /*fill.Radius = radius;
+            fill.Radius = radius;
         
-        fill.AngRadiansStart = startDegree * Mathf.Deg2Rad;*/
+            fill.AngRadiansStart = startDegree * Mathf.Deg2Rad;
+        }*/
+        
         
         
         SetRange(0);
     }
-
-    void SetRange(float range)
+    /// <summary>
+    /// 外界唯一需要这个接口的地方是动画倒放
+    /// </summary>
+    /// <param name="range"></param>
+    public void SetRange(float range)
     {
         range = Mathf.Clamp01(range);
         controlDegree = Range2ControlDegree(range);//Mathf.Clamp(controlDegree, endDegree, startDegree);

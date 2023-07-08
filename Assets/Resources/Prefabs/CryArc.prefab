@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendMode: 1
   scaleMode: 0
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0.5411765, g: 0.5372549, b: 0.53333336, a: 1}
   detailLevel: 2
   renderQueue: -1
   zTest: 4
@@ -71,7 +71,7 @@ MonoBehaviour:
   angRadiansEnd: 0.34906584
   radius: 2
   radiusSpace: 0
-  thickness: 0.25
+  thickness: 0.6
   thicknessSpace: 0
   arcEndCaps: 1
   matchDashSpacingToSize: 1
@@ -192,16 +192,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f23dd69edff0f640addb69d264142c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 0
-  range: 0
-  lastRangeRecord: 0
-  recordX: 0
-  rangeDeltaSpeed: 0.5
+  radius: 2
+  thickNess: 0.5
   endDegree: 20
   startDegree: 160
+  range: 0
+  rangeDelta: 0
+  recordRange: 0
   controlDegree: 0
   fill: {fileID: 6419105636203459268}
+  bg: {fileID: 6419105635239024583}
+  handleDisc: {fileID: 6419105636228621943}
   handle: {fileID: 6419105636228621940}
+  IsLevel: 0
 --- !u!1 &6419105636203459264
 GameObject:
   m_ObjectHideFlags: 0
@@ -251,7 +254,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendMode: 1
   scaleMode: 0
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 1}
   detailLevel: 2
   renderQueue: -1
   zTest: 4
@@ -269,11 +272,11 @@ MonoBehaviour:
   colorOuterEnd: {r: 1, g: 1, b: 1, a: 1}
   geometry: 0
   angUnitInput: 1
-  angRadiansStart: 2.7925267
+  angRadiansStart: 2.7750735
   angRadiansEnd: 2.7925267
   radius: 2
   radiusSpace: 0
-  thickness: 0.25
+  thickness: 0.6
   thicknessSpace: 0
   arcEndCaps: 1
   matchDashSpacingToSize: 1
@@ -376,7 +379,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6419105636228621936}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.83, y: 0.85, z: 0}
+  m_LocalPosition: {x: -1.868, y: 0.696, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -397,7 +400,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   blendMode: 1
   scaleMode: 0
-  color: {r: 1, g: 1, b: 1, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 1}
   detailLevel: 2
   renderQueue: -1
   zTest: 4
@@ -408,7 +411,7 @@ MonoBehaviour:
   stencilRefID: 0
   stencilReadMask: 255
   stencilWriteMask: 255
-  type: 2
+  type: 0
   colorMode: 0
   colorOuterStart: {r: 1, g: 1, b: 1, a: 1}
   colorInnerEnd: {r: 1, g: 1, b: 1, a: 1}
@@ -417,7 +420,7 @@ MonoBehaviour:
   angUnitInput: 1
   angRadiansStart: 0
   angRadiansEnd: 2.3561945
-  radius: 0.125
+  radius: 0.25
   radiusSpace: 0
   thickness: 0.125
   thicknessSpace: 0
@@ -460,7 +463,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: d72c5e047d4188246887ffb9389e25a7, type: 2}
+  - {fileID: 2100000, guid: 35eb9f982684e7745b8ef050ccf0604b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -492,7 +495,7 @@ SortingGroup:
   m_Enabled: 1
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 3
+  m_SortingOrder: 2
 --- !u!58 &6419105636228622218
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 5774359933958049506}
   - component: {fileID: 5774359933958049507}
   - component: {fileID: 5774359933958049508}
-  - component: {fileID: 5774359933958049504}
   m_Layer: 0
   m_Name: Polygon
   m_TagString: Untagged
@@ -130,30 +129,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &5774359933958049504
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5774359933958049509}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0151a8a413c35934a9bf81fb527bdba0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_TPolygon: {fileID: 0}
-  m_HPolygon: {fileID: 0}
-  m_Btn: {fileID: 0}
-  OUC_Animation: {fileID: 0}
-  m_TUpHeight: 0
-  m_TDownHeight: 0
-  m_TLeftWidth: 0
-  m_TRightWidth: 0
-  m_HUpHeight: 0
-  m_HDownHeight: 0
-  m_HLeftWidth: 0
-  m_HRightWidth: 0
 --- !u!1 &5774359935473182021
 GameObject:
   m_ObjectHideFlags: 0
@@ -164,6 +139,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5774359935473182020}
   - component: {fileID: 5774359935473182019}
+  - component: {fileID: 1605813425520157422}
   m_Layer: 0
   m_Name: T
   m_TagString: Untagged
@@ -208,3 +184,21 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &1605813425520157422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5774359935473182021}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 933eaf4e77e8483db41cab4e678bc8c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myShape: 0
+  thickness: 0.5
+  widthLeft: 1.5
+  widthRight: 1.5
+  polygon: {fileID: 5774359933958049506}
+  height: 3
