@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
-using System.Threading;
 using UnityEngine;
 
 
-    
+
+/// <summary>
+/// H形状的描述和更新方法
+/// </summary>
 public class HShape:MyCustomShape
 {
     /// <summary>

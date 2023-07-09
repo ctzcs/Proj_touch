@@ -1,8 +1,9 @@
-
 using Shapes;
 using UnityEngine;
 
-
+/// <summary>
+/// 哭脸的bar，可能之后会用line去做
+/// </summary>
 public class CryArc : MonoBehaviour
 {
     [Header("--描述Arc的参数--")]
@@ -67,22 +68,24 @@ public class CryArc : MonoBehaviour
         if (!IsLevel && Input.GetMouseButton(0))
         {
             var point = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            RaycastHit2D info = Physics2D.Raycast(point, Vector2.zero, 0.1f);
             point.z = 0;
+            RaycastHit2D info = Physics2D.Raycast(point, Vector2.zero, 0.01f);
+
             if (info.collider.CompareTag("Handle"))
             {
                 var florence = Mathf.Abs(point.x - _recordX);
                 if (florence > 0.001f)
                 {
+                    //先计算出鼠标在模型空间的位置
                     var localPoint = transform.InverseTransformPoint(point);
                     var angle = Vector2.SignedAngle(bg.transform.right, localPoint);
-                    float value = ControlDegree2Range(angle);
-                    rangeDelta = value - range;
-                    range = value;
-                    if (Vector2.Distance(localPoint, handle.localPosition) < 1f)
+                    if (Vector2.Distance(localPoint, handle.localPosition) < 0.5f)
                     {
+                        //如果在handle的范围内，则设置Range来改变handle的位置
+                        float value = ControlDegree2Range(angle);
+                        rangeDelta = value - range;
+                        range = value;
                         SetRange(value);
-
                     }
                 }
 

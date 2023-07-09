@@ -1,11 +1,14 @@
-using System.Collections.Generic;
+
 using DG.Tweening;
 using Shapes;
 using UnityEngine;
-using UnityEngine.Playables;
+
 
 namespace Runtime.Sandbox.CorePlay
 {
+    /// <summary>
+    /// 测试用的
+    /// </summary>
     public class Test : MonoBehaviour
     {
         public Polygon draw;

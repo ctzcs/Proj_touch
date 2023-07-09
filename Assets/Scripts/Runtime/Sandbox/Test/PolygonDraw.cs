@@ -1,8 +1,10 @@
-using System;
+
 using UnityEngine;
 
-namespace Runtime.Sandbox.CorePlay
-{
+
+/// <summary>
+/// 用来画多边形,没用到
+/// </summary>
     public class PolygonDraw : MonoBehaviour
     {
         #region 字段
@@ -147,4 +149,3 @@ namespace Runtime.Sandbox.CorePlay
         
         
     }
-}

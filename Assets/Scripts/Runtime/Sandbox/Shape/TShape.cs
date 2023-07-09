@@ -1,9 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 
+/// <summary>
+/// T形状的描述和更新方法
+/// </summary>
     public class TShape:MyCustomShape
     {
         /// <summary>

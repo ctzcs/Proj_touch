@@ -4,6 +4,9 @@ using Shapes;
 using UnityEngine.UI;
 using UnityEditor;
 
+/// <summary>
+/// 武田晴海的控制器
+/// </summary>
 public class Tanim : MonoBehaviour
 {
     public Polygon m_TPolygon;

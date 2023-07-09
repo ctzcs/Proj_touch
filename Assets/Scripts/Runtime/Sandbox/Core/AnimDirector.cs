@@ -1,11 +1,7 @@
-﻿
-using System;
-using DG.Tweening;
-using DG.Tweening.Core;
-using SFrame;
+﻿using DG.Tweening;
 using Shapes;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
+
 
 /// <summary>
 /// 标识当前场景的枚举
@@ -18,6 +14,9 @@ public enum ECurrentState
     BackToStart,
 }
 
+/// <summary>
+/// 动画导演
+/// </summary>
 public class AnimDirector:MonoBehaviour
 {
     public Polygon tPolygon;
@@ -265,11 +264,7 @@ public class AnimDirector:MonoBehaviour
         {
             return;
         }
-
-        if (cryArc == null)
-        {
-            return;
-        }
+        
         if (Mathf.Approximately(cryArc.rangeDelta,0))
         {
             for (int i = 0; i < _tweeners_T.Length; i++)
@@ -341,11 +336,23 @@ public class AnimDirector:MonoBehaviour
 
     void BackToStartAnim()
     {
+        //
         TweenPlayBack(_tweeners_CryArc_Finish);
+        //笑脸消失
         TweenPlayBack(_tweeners_Smile_Finish);
         //这里只有这一个动画，先这样了
-        TweenPlayForward(_tweeners_CryArc_BackToStart,BackToStartState);
-        cryArc.IsLevel = false;
+        //cryArc的range归零
+        if (_tweeners_CryArc_BackToStart[0].IsComplete())
+        {
+            //其他的动画都倒回了，这个没有，所以要重新开始
+            _tweeners_CryArc_BackToStart[0].Restart();
+        }
+        else
+        {
+            TweenPlayForward(_tweeners_CryArc_BackToStart,BackToStartState);
+        }
+        
+        
         /*state = ECurrentState.Start;*/
         
     }
@@ -366,6 +373,7 @@ public class AnimDirector:MonoBehaviour
         for (int i = 0; i < tween.Length; i++)
         {
             tween[i].PlayForward();
+            
             //每个都回调似乎不太对的
             tween[i].onComplete += callback;
         }
@@ -393,6 +401,7 @@ public class AnimDirector:MonoBehaviour
     void BackToStartState()
     {
         SetAnimState(ECurrentState.Start);
+        cryArc.IsLevel = false;
     }
     #endregion
     
